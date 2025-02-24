@@ -1,0 +1,25 @@
+services:
+  backend:
+    container_name: test_stripe
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./stripe:/stripe
+    env_file:
+      - .env
+
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
+
+    depends_on:
+      - database
+
+  database:
+    container_name: test_db
+    image: postgres:14.6-alpine
+    env_file:
+      - .env
+    ports:
+      - "5433:5432"
