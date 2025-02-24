@@ -1,12 +1,12 @@
 services:
   backend:
-    container_name: test_stripe
+    container_name: test_task
     build:
       context: .
     ports:
       - "8000:8000"
     volumes:
-      - ./stripe:/stripe
+      - ./testtask:/testtask
     env_file:
       - .env
 

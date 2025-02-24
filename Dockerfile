@@ -21,10 +21,10 @@ RUN poetry config virtualenvs.create false && \
     poetry install --no-root --no-interaction --no-ansi
 
 # Копируем исходный код приложения
-COPY stripe /stripe
+COPY testtask /testtask
 
 # Устанавливаем рабочую директорию
-WORKDIR /stripe
+WORKDIR /testtask
 
 # Создаем пользователя для запуска приложения
 RUN adduser --disabled-password finance_app-user
