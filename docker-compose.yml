@@ -1,3 +1,5 @@
+version: "3.8"
+
 services:
   backend:
     container_name: test_task
@@ -9,10 +11,8 @@ services:
       - ./testtask:/testtask
     env_file:
       - .env
-
     command: >
-      sh -c "python manage.py runserver 0.0.0.0:8000"
-
+      sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     depends_on:
       - database
 
@@ -23,3 +23,8 @@ services:
       - .env
     ports:
       - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
