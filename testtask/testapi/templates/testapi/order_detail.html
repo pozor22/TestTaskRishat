@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order #{{ order.id }}</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'testapi/css/order_detail.css' %}">
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        const orderId = "{{ order.id }}";
+        const stripePublicKey = "{{ stripe_public_key }}";
+    </script>
+    <script src="{% static 'testapi/js/order_detail.js' %}"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Order #{{ order.id }}</h1>
+        <p>Here are the items in your order:</p>
+
+        <ul class="item-list">
+            {% for item in order.items.all %}
+                <li class="item">
+                    <span class="item-name">{{ item.name }}</span>
+                    <span class="item-price">${{ item.price|floatformat:2 }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+
+        {% if order.discounts.all %}
+        <p>Discounts:</p>
+        <ul>
+            {% for discount in order.discounts.all %}
+                <li>{{ discount.name }}: -${{ discount.amount|floatformat:2 }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if order.taxes.all %}
+        <p>Taxes:</p>
+        <ul>
+            {% for tax in order.taxes.all %}
+                <li>{{ tax.name }}: {{ tax.rate }}%</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <p class="total-price">Total: <strong>${{ order.get_total_price|floatformat:2 }}</strong></p>
+        <button id="pay-button">Pay Now</button>
+    </div>
+</body>
+</html>

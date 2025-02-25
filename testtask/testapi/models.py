@@ -8,3 +8,13 @@ class Item(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Order(models.Model):
+    items = models.ManyToManyField(Item)
+
+    def get_total_price(self):
+        return sum(item.price for item in self.items.all())
+
+    def __str__(self):
+        return f"Order {self.id} - {self.get_total_price()} cents"
