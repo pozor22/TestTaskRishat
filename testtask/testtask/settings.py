@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_spectacular',
 
-
+    'testapi',
 
     'django.contrib.admin',
     'django.contrib.auth',
