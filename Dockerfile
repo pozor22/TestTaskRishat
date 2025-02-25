@@ -36,4 +36,4 @@ USER finance_app-user
 EXPOSE 8000
 
 # Устанавливаем команду для запуска Django приложения
-CMD ["sh", "-c", "python manage.py runserver 0.0.0.0:8000"]
+CMD ["sh", "-c", "python manage.py runserver"]
